@@ -135,7 +135,7 @@
               // setCookie("username",this.loginForm.username,15);
               // setCookie("password",this.loginForm.password,15);
               this.$router.push({path: '/'})
-            }).catch(() => {
+            }).finally(() => {
               this.loading = false
             })
           } else {

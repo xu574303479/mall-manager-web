@@ -7,9 +7,9 @@
                ref="loginForm"
                label-position="left">
         <div style="text-align: center">
-          <svg-icon icon-class="login-mall" style="width: 56px;height: 56px;color: #409EFF"></svg-icon>
+          <svg-icon icon-class="admin" style="width: 56px;height: 56px;color: #409EFF"></svg-icon>
         </div>
-        <h2 class="login-title color-main">mall-admin-web</h2>
+        <h2 class="login-title color-main">后台管理系统</h2>
         <el-form-item prop="username">
           <el-input name="username"
                     type="text"
@@ -40,9 +40,9 @@
           <el-button style="width: 45%" type="primary" :loading="loading" @click.native.prevent="handleLogin">
             登录
           </el-button>
-          <el-button style="width: 45%" type="primary" @click.native.prevent="handleTry">
+          <!-- <el-button style="width: 45%" type="primary" @click.native.prevent="handleTry">
             获取体验账号
-          </el-button>
+          </el-button> -->
         </el-form-item>
       </el-form>
     </el-card>
@@ -69,6 +69,8 @@
   import {isvalidUsername} from '@/utils/validate';
   import {setSupport,getSupport,setCookie,getCookie} from '@/utils/support';
   import login_center_bg from '@/assets/images/login_center_bg.png'
+  import store from '@/store'
+  import { generateDevice } from '@/utils/index'
 
   export default {
     name: 'login',
@@ -90,7 +92,7 @@
       return {
         loginForm: {
           username: 'admin',
-          password: 'macro123',
+          password: '111111',
         },
         loginRules: {
           username: [{required: true, trigger: 'blur', validator: validateUsername}],
@@ -124,11 +126,6 @@
       handleLogin() {
         this.$refs.loginForm.validate(valid => {
           if (valid) {
-            // let isSupport = getSupport();
-            // if(isSupport===undefined||isSupport==null){
-            //   this.dialogVisible =true;
-            //   return;
-            // }
             this.loading = true;
             this.$store.dispatch('Login', this.loginForm).then(() => {
               this.loading = false;

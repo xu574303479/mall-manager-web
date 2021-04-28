@@ -1,9 +1,12 @@
 import { login, logout, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
+import { generateDevice } from '@/utils/index'
+import { getDevice, setDevice, removeDevice } from '@/utils/device'
 
 const user = {
   state: {
     token: getToken(),
+    device: getDevice(),
     name: '',
     avatar: '',
     roles: []
@@ -19,6 +22,9 @@ const user = {
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
     },
+    SET_DEVICE: (state, device) => {
+      state.device = device
+    },
     SET_ROLES: (state, roles) => {
       state.roles = roles
     }
@@ -28,15 +34,23 @@ const user = {
     // 登录
     Login({ commit }, userInfo) {
       const username = userInfo.username.trim()
+      const device = generateDevice()
+      commit('SET_DEVICE', device)
+      setDevice(device)
+      console.log("登录前device==========" + device);
+      console.log("getDevice==========" + getDevice());
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
           const data = response.data
           const token = data.token;
-          console.log(data.tokenHead);
-          console.log(data.token);
-          const tokenStr = data.tokenHead+data.token
-          setToken(tokenStr)
-          commit('SET_TOKEN', tokenStr)
+          // console.log(data.tokenHead);
+          // console.log(data.token);
+
+          console.log("登录成功device=" + device);
+          
+          // const tokenStr = data.tokenHead+data.token
+          setToken(token)
+          commit('SET_TOKEN', token)
           resolve()
         }).catch(error => {
           reject(error)
@@ -52,7 +66,7 @@ const user = {
           if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', data.roles)
           } else {
-            reject('getInfo: roles must be a non-null array !')
+            reject('账号未分配权限，暂不可登录！')
           }
           commit('SET_NAME', data.username)
           commit('SET_AVATAR', data.icon)
@@ -69,6 +83,8 @@ const user = {
         logout(state.token).then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
+          commit('SET_DEVICE', '')
+          removeDevice()
           removeToken()
           resolve()
         }).catch(error => {
@@ -81,6 +97,8 @@ const user = {
     FedLogOut({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
+        commit('SET_DEVICE', '')
+        removeDevice()
         removeToken()
         resolve()
       })

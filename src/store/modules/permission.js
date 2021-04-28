@@ -78,11 +78,12 @@ const permission = {
   actions: {
     GenerateRoutes({ commit }, data) {
       return new Promise(resolve => {
+        // const { username } = data;
         const { menus } = data;
-        const { username } = data;
         const accessedRouters = asyncRouterMap.filter(v => {
           //admin帐号直接返回所有菜单
           // if(username==='admin') return true;
+          // 根据角色返回菜单匹配
           if (hasPermission(menus, v)) {
             if (v.children && v.children.length > 0) {
               v.children = v.children.filter(child => {

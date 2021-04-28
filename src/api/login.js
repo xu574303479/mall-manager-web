@@ -23,7 +23,7 @@ export function logout() {
 export function getInfo() {
   return request({
     url: BASE_API_PATH + '/info',
-    method: 'get',
+    method: 'get'
   })
 }
 

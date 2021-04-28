@@ -3,6 +3,7 @@ import { Message, MessageBox } from 'element-ui'
 import store from '../store'
 import { getToken } from '@/utils/auth'
 import qs from 'qs'
+import { getDevice } from '@/utils/device'
 
 // 创建axios实例
 const service = axios.create({
@@ -14,30 +15,42 @@ const service = axios.create({
 service.interceptors.request.use(config => {
   this.loading = true
 
-  let json_params = config.data
-  // console.log(json_params);
+  let json_params = {}
   try {
+    if (config.method === 'get') {
+        if (config.params !== null && config.params !== undefined) {
+          json_params = config.params
+        }
 
-    const DEVICE = store.getters.device
-    if (DEVICE !=='' && DEVICE !== null && DEVICE !== undefined) {
-      json_params.device = DEVICE // 让每个请求携带设备号device 请根据实际情况自行修改
-      // console.log("===============" + DEVICE)
+        const DEVICE = getDevice()
+        if (DEVICE !=='' && DEVICE !== null && DEVICE !== undefined) {
+          json_params.device = DEVICE // 让每个请求携带设备号device 请根据实际情况自行修改
+        }
+        if (store.getters.token) {
+          json_params.token = getToken()  // 让每个请求携带自定义token 请根据实际情况自行修改
+        }
+
+        config.params = json_params
+    } else if (Object.prototype.toString.call(config.data) !== '[object FormData]') {
+      json_params = config.data
+
+      const DEVICE = getDevice()
+      if (DEVICE !=='' && DEVICE !== null && DEVICE !== undefined) {
+        json_params.device = DEVICE // 让每个请求携带设备号device 请根据实际情况自行修改
+      }
+
+      if (store.getters.token) {
+        json_params.token = getToken()  // 让每个请求携带自定义token 请根据实际情况自行修改
+      }
+
+      // 表单提交修改数据格式
+      if (config.headers['Content-Type'] == "application/x-www-form-urlencoded") {
+          config.data = qs.stringify(json_params)
+      } else {
+          config.data = json_params
+      }
     }
 
-    if (store.getters.token) {
-      json_params.token = getToken()  // 让每个请求携带自定义token 请根据实际情况自行修改
-    }
-
-    config.data = json_params
-
-    // 表单提交修改数据格式
-    if (config.headers['Content-Type'] == "application/x-www-form-urlencoded") {
-        config.data = qs.stringify(config.data)
-    }
-
-    console.log(config.data)
-    
-    
     return config
   } finally {
     this.loading = false
@@ -56,7 +69,7 @@ service.interceptors.response.use(
   */
     const res = response.data
 
-    console.log("response============" + res.data);
+    console.log("response============" + res.data)
     if (res.code !== 1) {
       Message({
         message: res.msg,
@@ -64,7 +77,7 @@ service.interceptors.response.use(
         duration: 3 * 1000
       })
 
-      // 401:未登录;
+      // 401:未登录
       if (res.code === 401) {
         MessageBox.confirm('登录失效,请重新登录', '确定登出', {
           confirmButtonText: '重新登录',

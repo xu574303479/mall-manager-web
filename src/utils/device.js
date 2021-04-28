@@ -7,7 +7,6 @@ export function getDevice() {
 }
 
 export function setDevice(device) {
-  console.log("setDevice=========" + device);
   return Cookies.set(DeviceKey, device)
 }
 

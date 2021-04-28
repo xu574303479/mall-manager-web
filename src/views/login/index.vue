@@ -69,8 +69,6 @@
   import {isvalidUsername} from '@/utils/validate';
   import {setSupport,getSupport,setCookie,getCookie} from '@/utils/support';
   import login_center_bg from '@/assets/images/login_center_bg.png'
-  import store from '@/store'
-  import { generateDevice } from '@/utils/index'
 
   export default {
     name: 'login',

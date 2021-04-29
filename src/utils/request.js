@@ -32,7 +32,9 @@ service.interceptors.request.use(config => {
 
         config.params = json_params
     } else if (Object.prototype.toString.call(config.data) !== '[object FormData]') {
-      json_params = config.data
+      if (config.data !== null && config.data !== undefined) {
+        json_params = config.data
+      }
 
       const DEVICE = getDevice()
       if (DEVICE !=='' && DEVICE !== null && DEVICE !== undefined) {
@@ -50,6 +52,14 @@ service.interceptors.request.use(config => {
           config.data = json_params
       }
     }
+
+    console.log('----------------------------------');
+    console.log('token=' + getToken());
+    console.log('data');
+    console.log(config.data);
+    console.log('params');
+    console.log(config.params);
+    console.log('----------------------------------');
 
     return config
   } finally {

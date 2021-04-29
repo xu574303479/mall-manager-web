@@ -1,3 +1,5 @@
+源码作者:macrozheng
+github地址:https://github.com/macrozheng/mall
 # mall-admin-web
 <p>
   <a href="#公众号"><img src="http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/badge/%E5%85%AC%E4%BC%97%E5%8F%B7-macrozheng-blue.svg" alt="公众号"></a>

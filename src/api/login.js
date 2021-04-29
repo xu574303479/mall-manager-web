@@ -15,7 +15,7 @@ export function login(username, password) {
 
 export function logout() {
   return request({
-    url: '/api/logout',
+    url: BASE_API_PATH + '/logout',
     method: 'post'
   })
 }

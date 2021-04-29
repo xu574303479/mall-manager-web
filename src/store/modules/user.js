@@ -71,6 +71,7 @@ const user = {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
           removeToken()
+          removeDevice()
           resolve()
         }).catch(error => {
           reject(error)
@@ -83,6 +84,7 @@ const user = {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
         removeToken()
+        removeDevice()
         resolve()
       })
     }

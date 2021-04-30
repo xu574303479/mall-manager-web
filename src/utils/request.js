@@ -4,17 +4,17 @@ import store from '../store'
 import { getToken } from '@/utils/auth'
 import qs from 'qs'
 import { getDevice } from '@/utils/device'
+import { createSign } from '@/utils/ctsign'
 
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_API, // api的base_url
-  timeout: 15000 // 请求超时时间
+  timeout: 60000 // 请求超时时间
 })
 
 // request拦截器
 service.interceptors.request.use(config => {
   this.loading = true
-
   let json_params = {}
   try {
     if (config.method === 'get') {
@@ -29,6 +29,9 @@ service.interceptors.request.use(config => {
         if (store.getters.token) {
           json_params.token = getToken()  // 让每个请求携带自定义token 请根据实际情况自行修改
         }
+        
+        json_params.timestamp = new Date().getTime()  // 让每个请求携带timestamp
+        json_params.sign = createSign(json_params)  // 让每个请求携带sign
 
         config.params = json_params
     } else if (Object.prototype.toString.call(config.data) !== '[object FormData]') {
@@ -45,21 +48,17 @@ service.interceptors.request.use(config => {
         json_params.token = getToken()  // 让每个请求携带自定义token 请根据实际情况自行修改
       }
 
+      json_params.timestamp = new Date().getTime()  // 让每个请求携带timestamp
+      json_params.sign = createSign(json_params)  // 让每个请求携带sign
+
       // 表单提交修改数据格式
       if (config.headers['Content-Type'] == "application/x-www-form-urlencoded") {
-          config.data = qs.stringify(json_params)
+
+        config.data = qs.stringify(json_params)
       } else {
-          config.data = json_params
+        config.data = json_params
       }
     }
-
-    console.log('----------------------------------');
-    console.log('token=' + getToken());
-    console.log('data');
-    console.log(config.data);
-    console.log('params');
-    console.log(config.params);
-    console.log('----------------------------------');
 
     return config
   } finally {
@@ -74,12 +73,10 @@ service.interceptors.request.use(config => {
 // respone拦截器
 service.interceptors.response.use(
   response => {
-  /**
-  * code为非200是抛错 可结合自己业务进行修改
-  */
+    /**
+    * code为非200是抛错 可结合自己业务进行修改
+    */
     const res = response.data
-
-    console.log("response============" + res.data)
     if (res.code !== 1) {
       Message({
         message: res.msg,

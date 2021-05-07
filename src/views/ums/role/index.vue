@@ -137,12 +137,12 @@
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 5,
-    keyword: null
+    keyword: ''
   };
   const defaultRole = {
-    id: null,
-    name: null,
-    description: null,
+    id: '',
+    name: '',
+    description: '',
     adminCount: 0,
     status: 1
   };

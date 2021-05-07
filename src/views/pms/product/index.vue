@@ -285,14 +285,14 @@
   import {fetchListWithChildren} from '@/api/productCate'
 
   const defaultListQuery = {
-    keyword: null,
+    keyword: '',
     pageNum: 1,
     pageSize: 5,
-    publishStatus: null,
-    verifyStatus: null,
-    productSn: null,
-    productCategoryId: null,
-    brandId: null
+    publishStatus: '',
+    verifyStatus: '',
+    productSn: '',
+    productCategoryId: '',
+    brandId: ''
   };
   export default {
     name: "productList",

@@ -134,12 +134,12 @@
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 10,
-    id: null,
-    receiverKeyword: null,
-    status: null,
-    createTime: null,
-    handleMan: null,
-    handleTime: null
+    id: '',
+    receiverKeyword: '',
+    status: '',
+    createTime: '',
+    handleMan: '',
+    handleTime: ''
   };
   const defaultStatusOptions=[
     {

@@ -77,25 +77,27 @@ service.interceptors.response.use(
     * code为非200是抛错 可结合自己业务进行修改
     */
     const res = response.data
-    if (res.code !== 1) {
+    console.log('response.data-------------------------');
+    console.log(response.data);
+    // 401:未登录
+    if (res.code === 401) {
+      MessageBox.confirm('登录失效,请重新登录', '确定登出', {
+        confirmButtonText: '重新登录',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        store.dispatch('FedLogOut').then(() => {
+          location.reload()// 为了重新实例化vue-router对象 避免bug
+        })
+      })
+      return Promise.reject('error')
+    } else if (res.code !== 1) {
       Message({
         message: res.msg,
         type: 'error',
         duration: 3 * 1000
       })
 
-      // 401:未登录
-      if (res.code === 401) {
-        MessageBox.confirm('登录失效,请重新登录', '确定登出', {
-          confirmButtonText: '重新登录',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          store.dispatch('FedLogOut').then(() => {
-            location.reload()// 为了重新实例化vue-router对象 避免bug
-          })
-        })
-      }
       return Promise.reject('error')
     } else {
       return response.data

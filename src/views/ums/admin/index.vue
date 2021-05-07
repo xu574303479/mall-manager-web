@@ -40,19 +40,22 @@
           <template slot-scope="scope">{{scope.row.id}}</template>
         </el-table-column>
         <el-table-column label="帐号" align="center">
-          <template slot-scope="scope">{{scope.row.username}}</template>
+          <template slot-scope="scope">{{scope.row.name}}</template>
         </el-table-column>
-        <el-table-column label="姓名" align="center">
-          <template slot-scope="scope">{{scope.row.nickName}}</template>
-        </el-table-column>
-        <el-table-column label="邮箱" align="center">
-          <template slot-scope="scope">{{scope.row.email}}</template>
+        <el-table-column label="描述" align="center">
+          <template slot-scope="scope">{{scope.row.description}}</template>
         </el-table-column>
         <el-table-column label="添加时间" width="160" align="center">
           <template slot-scope="scope">{{scope.row.createTime | formatDateTime}}</template>
         </el-table-column>
-        <el-table-column label="最后登录" width="160" align="center">
-          <template slot-scope="scope">{{scope.row.loginTime | formatDateTime}}</template>
+        <el-table-column label="最后登录时间" width="160" align="center">
+          <template slot-scope="scope">{{scope.row.lastTime | formatDateTime}}</template>
+        </el-table-column>
+        <el-table-column label="最后登录ip" width="160" align="center">
+          <template slot-scope="scope">{{scope.row.lastip}}</template>
+        </el-table-column>
+        <el-table-column label="登录次数" align="center">
+          <template slot-scope="scope">{{scope.row.visitCount}}</template>
         </el-table-column>
         <el-table-column label="是否启用" width="140" align="center">
           <template slot-scope="scope">
@@ -88,8 +91,8 @@
         background
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        layout="total, sizes,prev, pager, next,jumper"
-        :current-page.sync="listQuery.pageNum"
+        layout="total, sizes, prev, pager, next, jumper"
+        :current-page.sync="listQuery.page"
         :page-size="listQuery.pageSize"
         :page-sizes="[10,15,20]"
         :total="total">
@@ -157,17 +160,17 @@
   import {formatDate} from '@/utils/date';
 
   const defaultListQuery = {
-    pageNum: 1,
+    page: 1,
     pageSize: 10,
-    keyword: null
+    keyword: ''
   };
   const defaultAdmin = {
-    id: null,
-    username: null,
-    password: null,
-    nickName: null,
-    email: null,
-    note: null,
+    id: '',
+    username: '',
+    password: '',
+    nickName: '',
+    email: '',
+    note: '',
     status: 1
   };
   export default {
@@ -205,16 +208,16 @@
         this.listQuery = Object.assign({}, defaultListQuery);
       },
       handleSearchList() {
-        this.listQuery.pageNum = 1;
+        this.listQuery.page = 1;
         this.getList();
       },
       handleSizeChange(val) {
-        this.listQuery.pageNum = 1;
+        this.listQuery.page = 1;
         this.listQuery.pageSize = val;
         this.getList();
       },
       handleCurrentChange(val) {
-        this.listQuery.pageNum = val;
+        this.listQuery.page = val;
         this.getList();
       },
       handleAdd() {
@@ -316,17 +319,17 @@
         this.listLoading = true;
         fetchList(this.listQuery).then(response => {
           this.listLoading = false;
-          this.list = response.data.list;
-          this.total = response.data.total;
+          this.list = response.data.pagingList.resultList;
+          this.total = response.data.pagingList.totalRecord;
         });
       },
       getAllRoleList() {
         fetchAllRoleList().then(response => {
-          console.log('fetchAllRoleList()====response.data===返回结果');
-          console.log(response.data);
-          console.log(response.data.data);
-          console.log(response.data.data.roleList);
-          this.allRoleList = response.data;
+          // console.log('fetchAllRoleList()====response.data===返回结果');
+          // console.log(response.data);
+          // console.log(response.data.data);
+          // console.log(response.data.data.roleList);
+          this.allRoleList = response.data.roleList;
         });
       },
       getRoleListByAdmin(adminId) {

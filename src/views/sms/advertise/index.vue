@@ -144,9 +144,9 @@
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 5,
-    name: null,
-    type: null,
-    endTime:null
+    name: '',
+    type: '',
+    endTime: ''
   };
   const defaultTypeOptions = [
     {

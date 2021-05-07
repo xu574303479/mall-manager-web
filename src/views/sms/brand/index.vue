@@ -176,8 +176,8 @@
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 5,
-    brandName: null,
-    recommendStatus: null
+    brandName: '',
+    recommendStatus: ''
   };
   const defaultRecommendOptions = [
     {

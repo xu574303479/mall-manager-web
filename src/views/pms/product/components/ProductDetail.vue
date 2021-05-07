@@ -44,7 +44,7 @@
 
   const defaultProductParam = {
     albumPics: '',
-    brandId: null,
+    brandId: '',
     brandName: '',
     deleteStatus: 0,
     description: '',
@@ -66,7 +66,7 @@
     note: '',
     originalPrice: 0,
     pic: '',
-    //会员价格{memberLevelId: 0,memberPrice: 0,memberLevelName: null}
+    //会员价格{memberLevelId: 0,memberPrice: 0,memberLevelName: ''}
     memberPriceList: [],
     //商品满减
     productFullReductionList: [{fullPrice: 0, reducePrice: 0}],
@@ -74,7 +74,7 @@
     productLadderList: [{count: 0,discount: 0,price: 0}],
     previewStatus: 0,
     price: 0,
-    productAttributeCategoryId: null,
+    productAttributeCategoryId: '',
     //商品属性相关{productAttributeId: 0, value: ''}
     productAttributeValueList: [],
     //商品sku库存信息{lowStock: 0, pic: '', price: 0, sale: 0, skuCode: '', spData: '', stock: 0}
@@ -83,12 +83,12 @@
     subjectProductRelationList: [],
     //商品相关优选{prefrenceAreaId: 0}
     prefrenceAreaProductRelationList: [],
-    productCategoryId: null,
+    productCategoryId: '',
     productCategoryName: '',
     productSn: '',
     promotionEndTime: '',
     promotionPerLimit: 0,
-    promotionPrice: null,
+    promotionPrice: '',
     promotionStartTime: '',
     promotionType: 0,
     publishStatus: 0,

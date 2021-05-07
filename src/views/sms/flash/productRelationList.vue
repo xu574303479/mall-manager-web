@@ -151,8 +151,8 @@
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 5,
-    flashPromotionId: null,
-    flashPromotionSessionId: null
+    flashPromotionId: '',
+    flashPromotionSessionId: ''
   };
   export default {
     name:'flashPromotionProductRelationList',

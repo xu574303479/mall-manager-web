@@ -45,7 +45,7 @@
 <script>
   import {getOrderSetting,updateOrderSetting} from '@/api/orderSetting';
   const defaultOrderSetting = {
-    id: null,
+    id: '',
     flashOrderOvertime: 0,
     normalOrderOvertime: 0,
     confirmOvertime: 0,

@@ -177,8 +177,8 @@
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 5,
-    subjectName: null,
-    recommendStatus: null
+    subjectName: '',
+    recommendStatus: ''
   };
   const defaultRecommendOptions = [
     {

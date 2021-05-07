@@ -135,15 +135,15 @@
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 10,
-    nameKeyword: null,
-    urlKeyword: null,
-    categoryId:null
+    nameKeyword: '',
+    urlKeyword: '',
+    categoryId: ''
   };
   const defaultResource = {
-    id: null,
-    name: null,
-    url: null,
-    categoryId: null,
+    id: '',
+    name: '',
+    url: '',
+    categoryId: '',
     description:''
   };
   export default {

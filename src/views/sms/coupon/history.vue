@@ -139,9 +139,9 @@
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 10,
-    useStatus: null,
-    orderSn: null,
-    couponId: null
+    useStatus: '',
+    orderSn: '',
+    couponId: ''
   };
   const defaultUseTypeOptions= [
     {

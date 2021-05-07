@@ -185,12 +185,12 @@
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 10,
-    orderSn: null,
-    receiverKeyword: null,
-    status: null,
-    orderType: null,
-    sourceType: null,
-    createTime: null,
+    orderSn: '',
+    receiverKeyword: '',
+    status: '',
+    orderType: '',
+    sourceType: '',
+    createTime: '',
   };
   export default {
     name: "orderList",

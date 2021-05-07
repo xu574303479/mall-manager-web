@@ -322,6 +322,10 @@
       },
       getAllRoleList() {
         fetchAllRoleList().then(response => {
+          console.log('fetchAllRoleList()====response.data===返回结果');
+          console.log(response.data);
+          console.log(response.data.data);
+          console.log(response.data.data.roleList);
           this.allRoleList = response.data;
         });
       },

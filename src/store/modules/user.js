@@ -53,7 +53,7 @@ const user = {
           if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', data.roles)
           } else {
-            reject('账号未分配权限，暂不可登录！')
+            reject('账号未分配权限，不可登录！')
           }
           commit('SET_NAME', data.username)
           commit('SET_AVATAR', data.icon)

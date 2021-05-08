@@ -3,9 +3,9 @@ export function generateDevice() {
   let d = new Date().getTime()
 
   let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-  let r = (d + Math.random()*16)%16 | 0;
-    d = Math.floor(d/16)
-    return (c=='x' ? r : (r&0x3|0x8)).toString(16)
+    let r = (d + Math.random() * 16) % 16 | 0
+    d = Math.floor(d / 16)
+    return (c == 'x' ? r : (r & 0x3) | 0x8).toString(16)
   })
 
   return uuid
@@ -52,7 +52,8 @@ export function formatTime(time, option) {
 
   if (diff < 30) {
     return '刚刚'
-  } else if (diff < 3600) { // less 1 hour
+  } else if (diff < 3600) {
+    // less 1 hour
     return Math.ceil(diff / 60) + '分钟前'
   } else if (diff < 3600 * 24) {
     return Math.ceil(diff / 3600) + '小时前'

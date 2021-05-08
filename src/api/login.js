@@ -68,14 +68,17 @@ export function deleteAdmin(id) {
 
 export function getRoleByAdmin(id) {
   return request({
-    url: BASE_API_PATH + '/role/' + id,
-    method: 'get'
+    url: BASE_API_PATH + '/roles',
+    method: 'get',
+    params: {
+      adminId: id
+    }
   })
 }
 
 export function allocRole(data) {
   return request({
-    url: BASE_API_PATH + '/role/update',
+    url: BASE_API_PATH + '/setrole',
     method: 'post',
     data: data
   })

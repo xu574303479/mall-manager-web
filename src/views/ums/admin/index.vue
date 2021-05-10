@@ -55,13 +55,11 @@
             <el-switch @change="handleStatusChange(scope.$index, scope.row)" :active-value="1" :inactive-value="0" v-model="scope.row.status"> </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="180" align="center">
+        <el-table-column label="操作" width="280" align="center">
           <template slot-scope="scope">
-            <el-button size="mini" type="text" @click="handleSelectRole(scope.$index, scope.row)">分配角色 </el-button>
-            <el-button size="mini" type="text" @click="handleUpdate(scope.$index, scope.row)">
-              编辑
-            </el-button>
-            <el-button size="mini" type="text" @click="handleDelete(scope.$index, scope.row)">删除 </el-button>
+            <el-button size="mini" type="primary" @click="handleSelectRole(scope.$index, scope.row)">分配角色 </el-button>
+            <el-button size="mini" type="warning" @click="handleUpdate(scope.$index, scope.row)">编辑 </el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除 </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -108,8 +106,8 @@
         <el-button type="primary" @click="handleDialogConfirm()" size="small">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="分配角色" :visible.sync="allocDialogVisible" width="30%">
-      <el-select v-model="allocRoleIds" multiple placeholder="请选择" size="small" style="width: 80%">
+    <el-dialog title="分配角色" :visible.sync="allocDialogVisible" >
+      <el-select v-model="allocRoleIds" multiple placeholder="请选择" size="small">
         <el-option v-for="item in allRoleList" :key="item.id" :label="item.name" :value="item.id"> </el-option>
       </el-select>
       <span slot="footer" class="dialog-footer">

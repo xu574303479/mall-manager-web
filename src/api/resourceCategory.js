@@ -1,15 +1,17 @@
 import request from '@/utils/request'
 
+const BASE_API_PATH = '/api/resources/category'
+
 export function listAllCate() {
   return request({
-    url: '/resourceCategory/listAll',
+    url: BASE_API_PATH + '/listall',
     method: 'get'
   })
 }
 
 export function createResourceCategory(data) {
   return request({
-    url: '/resourceCategory/create',
+    url: BASE_API_PATH + '/create',
     method: 'post',
     data: data
   })
@@ -17,7 +19,7 @@ export function createResourceCategory(data) {
 
 export function updateResourceCategory(id, data) {
   return request({
-    url: '/resourceCategory/update/' + id,
+    url: BASE_API_PATH + '/update/' + id,
     method: 'post',
     data: data
   })
@@ -25,7 +27,7 @@ export function updateResourceCategory(id, data) {
 
 export function deleteResourceCategory(id) {
   return request({
-    url: '/resourceCategory/delete/' + id,
+    url: BASE_API_PATH + '/delete/' + id,
     method: 'post'
   })
 }

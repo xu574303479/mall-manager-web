@@ -4,7 +4,7 @@ import store from '../store'
 import { getToken } from '@/utils/auth'
 import qs from 'qs'
 import { getDevice } from '@/utils/device'
-import { createSign } from '@/utils/ctsign'
+import { cs } from '@/utils/ctsign'
 
 // 创建axios实例
 const service = axios.create({
@@ -31,7 +31,7 @@ service.interceptors.request.use(
           json_params.token = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
         }
         json_params.timestamp = new Date().getTime() // 让每个请求携带timestamp
-        json_params.sign = createSign(json_params) // 让每个请求携带sign
+        json_params.sign = cs(json_params) // 让每个请求携带sign
 
         config.params = json_params
       } else if (Object.prototype.toString.call(config.data) === '[object URLSearchParams]') {
@@ -51,7 +51,7 @@ service.interceptors.request.use(
 
         console.log(json_params)
 
-        config.data.append('sign', createSign(json_params)) // 让每个请求携带sign
+        config.data.append('sign', cs(json_params)) // 让每个请求携带sign
       } else if (Object.prototype.toString.call(config.data) !== '[object FormData]') {
         if (config.data !== null && config.data !== undefined) {
           json_params = config.data
@@ -67,7 +67,7 @@ service.interceptors.request.use(
         }
 
         json_params.timestamp = new Date().getTime() // 让每个请求携带timestamp
-        json_params.sign = createSign(json_params) // 让每个请求携带sign
+        json_params.sign = cs(json_params) // 让每个请求携带sign
 
         // 表单提交修改数据格式
         if (config.headers['Content-Type'] === 'application/x-www-form-urlencoded') {

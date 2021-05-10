@@ -1,8 +1,10 @@
 import request from '@/utils/request'
 
-export function fetchList(parentId, params) {
+const BASE_API_PATH = '/api/menu'
+
+export function fetchList(params) {
   return request({
-    url: '/menu/list/' + parentId,
+    url: BASE_API_PATH + '/list',
     method: 'get',
     params: params
   })
